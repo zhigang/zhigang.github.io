@@ -1,0 +1,59 @@
+<?xml-stylesheet type="text/xsl" href="https://zhigang.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://zhigang.github.io/categories/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/post/2019/k8s-gco-io-images/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/categories/kubernetes/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/post/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/tags/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/tags/docker/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/tags/gcr.io/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhigang.github.io/tags/k8s/</loc>
+    <lastmod>2019-07-23T10:36:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on Zhigang</title>
+    <link>https://zhigang.github.io/tags/k8s/</link>
+    <description>Recent content in k8s on Zhigang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 23 Jul 2019 10:36:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhigang.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>K8s中常用的gcr.io镜像</title>
+      <link>https://zhigang.github.io/post/2019/k8s-gco-io-images/</link>
+      <pubDate>Tue, 23 Jul 2019 10:36:52 +0800</pubDate>
+      
+      <guid>https://zhigang.github.io/post/2019/k8s-gco-io-images/</guid>
+      <description>For don&amp;rsquo;t connect to gcr.io in china. Kubernetes Dashboard Docker Pull Command 1 docker pull siriuszg/kubernetes-dashboard-amd64:TAG Tags More tags at siriuszg/kubernetes-dashboard-amd64 Addon Resizer Docker Pull Command 1 docker pull siriuszg/addon-resizer:TAG Tags More tags at siriuszg/addon-resizer Pause Docker Pull Command 1 docker pull siriuszg/pause-amd64:TAG Tags 3.0 3.1 More tags at siriuszg/pause-amd64 Nginx Ingress Controller Docker Pull Command 1 docker pull siriuszg/nginx-ingress-controller:TAG Tags More tags at siriuszg/nginx-ingress-controller Kong Ingress Controller Docker Pull</description>
+    </item>
+    
+  </channel>
+</rss>

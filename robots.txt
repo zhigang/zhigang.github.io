@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://zhigang.github.io/sitemap.xml
