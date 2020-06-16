@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
 
 
 <link rel="canonical" href="https://zhigang.github.io/post/2019/k8s-gco-io-images/" />
@@ -34,7 +34,8 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.bda82ba0.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -42,21 +43,17 @@
 <meta property="og:description" content="For don&rsquo;t connect to gcr.io in china. Kubernetes Dashboard Docker Pull Command 1 docker pull siriuszg/kubernetes-dashboard-amd64:TAG Tags More tags at siriuszg/kubernetes-dashboard-amd64 Addon Resizer Docker Pull Command 1 docker pull siriuszg/addon-resizer:TAG Tags More tags at siriuszg/addon-resizer Pause Docker Pull Command 1 docker pull siriuszg/pause-amd64:TAG Tags 3.0 3.1 More tags at siriuszg/pause-amd64 Nginx Ingress Controller Docker Pull Command 1 docker pull siriuszg/nginx-ingress-controller:TAG Tags More tags at siriuszg/nginx-ingress-controller Kong Ingress Controller Docker Pull" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhigang.github.io/post/2019/k8s-gco-io-images/" />
-<meta property="article:published_time" content="2019-07-23T10:36:52&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-23T10:36:52&#43;08:00"/>
-
+<meta property="article:published_time" content="2019-07-23T10:36:52+08:00" />
+<meta property="article:modified_time" content="2019-07-23T10:36:52+08:00" />
 <meta itemprop="name" content="K8s中常用的gcr.io镜像">
 <meta itemprop="description" content="For don&rsquo;t connect to gcr.io in china. Kubernetes Dashboard Docker Pull Command 1 docker pull siriuszg/kubernetes-dashboard-amd64:TAG Tags More tags at siriuszg/kubernetes-dashboard-amd64 Addon Resizer Docker Pull Command 1 docker pull siriuszg/addon-resizer:TAG Tags More tags at siriuszg/addon-resizer Pause Docker Pull Command 1 docker pull siriuszg/pause-amd64:TAG Tags 3.0 3.1 More tags at siriuszg/pause-amd64 Nginx Ingress Controller Docker Pull Command 1 docker pull siriuszg/nginx-ingress-controller:TAG Tags More tags at siriuszg/nginx-ingress-controller Kong Ingress Controller Docker Pull">
-
-
 <meta itemprop="datePublished" content="2019-07-23T10:36:52&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-23T10:36:52&#43;08:00" />
 <meta itemprop="wordCount" content="89">
 
 
 
-<meta itemprop="keywords" content="gcr.io,docker,k8s," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="gcr.io,docker,k8s," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="K8s中常用的gcr.io镜像"/>
 <meta name="twitter:description" content="For don&rsquo;t connect to gcr.io in china. Kubernetes Dashboard Docker Pull Command 1 docker pull siriuszg/kubernetes-dashboard-amd64:TAG Tags More tags at siriuszg/kubernetes-dashboard-amd64 Addon Resizer Docker Pull Command 1 docker pull siriuszg/addon-resizer:TAG Tags More tags at siriuszg/addon-resizer Pause Docker Pull Command 1 docker pull siriuszg/pause-amd64:TAG Tags 3.0 3.1 More tags at siriuszg/pause-amd64 Nginx Ingress Controller Docker Pull Command 1 docker pull siriuszg/nginx-ingress-controller:TAG Tags More tags at siriuszg/nginx-ingress-controller Kong Ingress Controller Docker Pull"/>
 
@@ -136,136 +133,119 @@
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#kubernetes-dashboard">Kubernetes Dashboard</a>
-<ul>
-<li><a href="#docker-pull-command">Docker Pull Command</a></li>
-<li><a href="#tags">Tags</a></li>
-</ul></li>
-<li><a href="#addon-resizer">Addon Resizer</a>
-<ul>
-<li><a href="#docker-pull-command-1">Docker Pull Command</a></li>
-<li><a href="#tags-1">Tags</a></li>
-</ul></li>
-<li><a href="#pause">Pause</a>
-<ul>
-<li><a href="#docker-pull-command-2">Docker Pull Command</a></li>
-<li><a href="#tags-2">Tags</a></li>
-</ul></li>
-<li><a href="#nginx-ingress-controller">Nginx Ingress Controller</a>
-<ul>
-<li><a href="#docker-pull-command-3">Docker Pull Command</a></li>
-<li><a href="#tags-3">Tags</a></li>
-</ul></li>
-<li><a href="#kong-ingress-controller">Kong Ingress Controller</a>
-<ul>
-<li><a href="#docker-pull-command-4">Docker Pull Command</a></li>
-<li><a href="#tags-4">Tags</a></li>
-</ul></li>
-<li><a href="#其他镜像">其他镜像</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#kubernetes-dashboard">Kubernetes Dashboard</a>
+      <ul>
+        <li><a href="#docker-pull-command">Docker Pull Command</a></li>
+        <li><a href="#tags">Tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#addon-resizer">Addon Resizer</a>
+      <ul>
+        <li><a href="#docker-pull-command-1">Docker Pull Command</a></li>
+        <li><a href="#tags-1">Tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#pause">Pause</a>
+      <ul>
+        <li><a href="#docker-pull-command-2">Docker Pull Command</a></li>
+        <li><a href="#tags-2">Tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx-ingress-controller">Nginx Ingress Controller</a>
+      <ul>
+        <li><a href="#docker-pull-command-3">Docker Pull Command</a></li>
+        <li><a href="#tags-3">Tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#kong-ingress-controller">Kong Ingress Controller</a>
+      <ul>
+        <li><a href="#docker-pull-command-4">Docker Pull Command</a></li>
+        <li><a href="#tags-4">Tags</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他镜像">其他镜像</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<blockquote>
+      <blockquote>
 <p>For don&rsquo;t connect to gcr.io in china.</p>
 </blockquote>
-
 <h2 id="kubernetes-dashboard">Kubernetes Dashboard</h2>
-
 <h3 id="docker-pull-command">Docker Pull Command</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/kubernetes-dashboard-amd64:TAG</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/kubernetes-dashboard-amd64:TAG
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="tags">Tags</h3>
-
+</div><h3 id="tags">Tags</h3>
 <ul>
 <li>More tags at <a href="https://hub.docker.com/r/siriuszg/kubernetes-dashboard-amd64/tags">siriuszg/kubernetes-dashboard-amd64</a></li>
 </ul>
-
 <h2 id="addon-resizer">Addon Resizer</h2>
-
 <h3 id="docker-pull-command-1">Docker Pull Command</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/addon-resizer:TAG</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/addon-resizer:TAG
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="tags-1">Tags</h3>
-
+</div><h3 id="tags-1">Tags</h3>
 <ul>
 <li>More tags at <a href="https://hub.docker.com/r/siriuszg/addon-resizer/tags">siriuszg/addon-resizer</a></li>
 </ul>
-
 <h2 id="pause">Pause</h2>
-
 <h3 id="docker-pull-command-2">Docker Pull Command</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/pause-amd64:TAG</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/pause-amd64:TAG
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="tags-2">Tags</h3>
-
+</div><h3 id="tags-2">Tags</h3>
 <ul>
 <li>3.0</li>
 <li>3.1</li>
 <li>More tags at <a href="https://hub.docker.com/r/siriuszg/pause-amd64/tags">siriuszg/pause-amd64</a></li>
 </ul>
-
 <h2 id="nginx-ingress-controller">Nginx Ingress Controller</h2>
-
 <h3 id="docker-pull-command-3">Docker Pull Command</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/nginx-ingress-controller:TAG</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/nginx-ingress-controller:TAG
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="tags-3">Tags</h3>
-
+</div><h3 id="tags-3">Tags</h3>
 <ul>
 <li>More tags at <a href="https://hub.docker.com/r/siriuszg/nginx-ingress-controller/tags">siriuszg/nginx-ingress-controller</a></li>
 </ul>
-
 <h2 id="kong-ingress-controller">Kong Ingress Controller</h2>
-
 <h3 id="docker-pull-command-4">Docker Pull Command</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/kong-ingress-controller:TAG</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull siriuszg/kong-ingress-controller:TAG
+</code></pre></td></tr></table>
 </div>
-</div>
-<h3 id="tags-4">Tags</h3>
-
+</div><h3 id="tags-4">Tags</h3>
 <ul>
 <li>More tags at <a href="https://hub.docker.com/r/siriuszg/kong-ingress-controller/tags">siriuszg/kong-ingress-controller</a></li>
 </ul>
-
 <h2 id="其他镜像">其他镜像</h2>
-
 <ul>
 <li>More docker images at <a href="https://hub.docker.com/u/siriuszg">siriuszg</a></li>
 </ul>
@@ -294,14 +274,18 @@
           <a href="/tags/k8s/">k8s</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/2020/canal-install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">用Docker安装Canal</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         
       </nav>
     </footer>
   </article>
         </div>
         
-  
+
   
 
   
@@ -330,7 +314,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2019
+    2019 - 
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -347,7 +332,10 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
 
 
 

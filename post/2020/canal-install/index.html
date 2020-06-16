@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>用Docker安装Canal - Zhigang</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Zhigang" /><meta name="description" content="简介 canal [kə&amp;rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费" /><meta name="keywords" content="Hugo, Zhigang, zhigang.github.io" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://zhigang.github.io/post/2020/canal-install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="用Docker安装Canal" />
+<meta property="og:description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhigang.github.io/post/2020/canal-install/" />
+<meta property="article:published_time" content="2020-06-15T22:10:03+08:00" />
+<meta property="article:modified_time" content="2020-06-16T11:11:00+08:00" />
+<meta itemprop="name" content="用Docker安装Canal">
+<meta itemprop="description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费">
+<meta itemprop="datePublished" content="2020-06-15T22:10:03&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-16T11:11:00&#43;08:00" />
+<meta itemprop="wordCount" content="2392">
+
+
+
+<meta itemprop="keywords" content="canal,docker," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="用Docker安装Canal"/>
+<meta name="twitter:description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Zhigang.github.io</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Zhigang.github.io</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">用Docker安装Canal</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-15 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#工作原理">工作原理</a>
+      <ul>
+        <li><a href="#mysql主备复制原理">MySQL主备复制原理</a></li>
+        <li><a href="#canal-工作原理">canal 工作原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker部署canal发送binlog到kafka">Docker部署Canal发送Binlog到Kafka</a>
+      <ul>
+        <li><a href="#注意事项">注意事项</a></li>
+        <li><a href="#开启mysql的binlog">开启MySQL的binlog</a></li>
+        <li><a href="#部署canal的两种方式">部署Canal的两种方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#canal-admin-使用">Canal Admin 使用</a>
+      <ul>
+        <li><a href="#注意事项-1">注意事项</a></li>
+        <li><a href="#访问canal-admin">访问Canal Admin</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="简介">简介</h2>
+<p><img src="/img/canal.png" alt="Canal"></p>
+<ul>
+<li><strong>canal [kə&rsquo;næl]</strong>，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费</li>
+<li>基于日志增量订阅和消费的业务包括
+<ul>
+<li>数据库镜像</li>
+<li>数据库实时备份</li>
+<li>索引构建和实时维护(拆分异构索引、倒排索引等)</li>
+<li>业务 cache 刷新</li>
+<li>带业务逻辑的增量数据处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="工作原理">工作原理</h2>
+<h3 id="mysql主备复制原理">MySQL主备复制原理</h3>
+<p><img src="/img/canal_mysql.jpeg" alt="Canal工作原理"></p>
+<ul>
+<li>MySQL master 将数据变更写入二进制日志( binary log, 其中记录叫做二进制日志事件binary log events，可以通过 show binlog events 进行查看)</li>
+<li>MySQL slave 将 master 的 binary log events 拷贝到它的中继日志(relay log)</li>
+<li>MySQL slave 重放 relay log 中事件，将数据变更反映它自己的数据</li>
+</ul>
+<h3 id="canal-工作原理">canal 工作原理</h3>
+<ul>
+<li>canal 模拟 MySQL slave 的交互协议，伪装自己为 MySQL slave ，向 MySQL master 发送dump 协议</li>
+<li>MySQL master 收到 dump 请求，开始推送 binary log 给 slave (即 canal )</li>
+<li>canal 解析 binary log 对象(原始为 byte 流)</li>
+</ul>
+<h2 id="docker部署canal发送binlog到kafka">Docker部署Canal发送Binlog到Kafka</h2>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>本文涉及到的IP <code>10.10.40.237</code> , 请更改为自己的主机IP。</li>
+<li>Kafka的部署不是本文讨论的主要内容，单机Kafka的部署请参考 <a href="https://hub.docker.com/r/wurstmeister/kafka">wurstmeister/kafka</a></li>
+</ul>
+<h3 id="开启mysql的binlog">开启MySQL的binlog</h3>
+<ul>
+<li>创建<code>./config/binlog.cnf</code>, 内容如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[mysqld]
+log-bin=mysql-bin  # 添加这一行开启 binlog
+binlog-format=ROW  # 选择 ROW 模式
+server_id=1        # 针对 mysql 集群
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>创建<code>docker-compose.yml</code>, 内容如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: aabb1122
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./config:/etc/mysql/conf.d
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>docker-compose up -d</code> 运行MySQL</li>
+<li>注意事项
+<ul>
+<li>挂载 <code>/var/lib/mysql</code> 目录持久化数据，否则执行 <code>docker-compose down</code> 后会丢失数据。</li>
+<li>映射端口 <code>3306</code> 方便使用MySQL客户端访问。</li>
+</ul>
+</li>
+</ul>
+<h3 id="部署canal的两种方式">部署Canal的两种方式</h3>
+<h4 id="部署canal-server单机节点不使用canal-admin运维界面">部署Canal Server单机节点（不使用Canal Admin运维界面）</h4>
+<ul>
+<li>创建 <code>docker-compose-single.yml</code> , 使用 <code>docker-compose up -d -f docker-compose-single.yml</code> 启动，内容如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
+services:
+    canal-server:
+        image: canal/canal-server:v1.1.4
+        restart: on-failure
+        environment:
+            canal.instance.mysql.slaveId: 1234 # 与mysql的server_id不同即可，也可以不设置，让canal自动生成
+            canal.instance.master.address: 10.10.40.237:3306 # mysql 地址
+            canal.instance.dbUsername: root  # 刚才加了权限的用户
+            canal.instance.dbPassword: aabb1122
+            # canal.instance.connectionCharset: UTF-8
+            # canal.instance.filter.regex: .\*\\\\..\*
+            # 默认值tcp，这里改为投递到Kafka
+            canal.serverMode : kafka
+            # Kafka bootstrap.servers，可以不用写上全部的brokers
+            canal.mq.servers : 10.10.40.237:9092
+            # 投递失败的重试次数，默认0，改为2
+            canal.mq.retries : 2
+            # Kafka batch.size，即producer一个微批次的大小，默认16K，这里加倍
+            canal.mq.batchSize : 32768
+            # Kafka max.request.size，即一个请求的最大大小，默认1M，这里也加倍
+            canal.mq.maxRequestSize : 2097152
+            # Kafka linger.ms，即sender线程在检查微批次是否就绪时的超时，默认0ms，这里改为200ms
+            # 满足batch.size和linger.ms其中之一，就会发送消息
+            canal.mq.lingerMs : 200
+            # Kafka buffer.memory，缓存大小，默认32M
+            canal.mq.bufferMemory : 33554432
+            # 获取binlog数据的批次大小，默认50
+            canal.mq.canalBatchSize : 50
+            # 获取binlog数据的超时时间，默认200ms
+            canal.mq.canalGetTimeout : 200
+            # 是否将binlog转为JSON格式。如果为false，就是原生Protobuf格式
+            canal.mq.flatMessage : &#34;true&#34;
+            # 压缩类型，官方文档没有描述
+            canal.mq.compressionType : none
+            # Kafka acks，默认all，表示分区leader会等所有follower同步完才给producer发送ack
+            # 0表示不等待ack，1表示leader写入完毕之后直接ack
+            canal.mq.acks : all
+            # Kafka消息投递是否使用事务
+            # 主要针对flatMessage的异步发送和动态多topic消息投递进行事务控制来保持和Canal binlog位置的一致性
+            # flatMessage模式下建议开启
+            canal.mq.transaction : &#34;true&#34;
+        ports:
+            - 11110:11110
+            - 11111:11111
+            - 11112:11112
+            - 9100:9100
+        volumes:
+            -  ./logs/canal-server/logs:/home/admin/canal-server/logs
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注意事项
+<ul>
+<li>挂载 <code>/home/admin/canal-server/logs</code> 目录可以方便的查询日志。</li>
+<li>Canal Server可以使用环境变量的方式设置，也可以使用挂载配置文件的方式进行配置。</li>
+</ul>
+</li>
+</ul>
+<h4 id="部署cannal-admin-和-cannal-server">部署Cannal Admin 和 Cannal Server</h4>
+<ul>
+<li>首先，创建Canal Admin的配置文件 <code>/config/admin/application.yml</code> , 内容如下：
+<ul>
+<li>配置信息中”canal.admin.passwd” 是Canal Server连接时使用的，后续会再说明使用方式。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server:
+  port: 8089
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+spring.datasource:
+  address: 10.10.40.237:3306
+  database: canal_manager
+  username: canal
+  password: canal
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://${spring.datasource.address}/${spring.datasource.database}?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false
+  hikari:
+    maximum-pool-size: 30
+    minimum-idle: 1
+
+canal:
+  adminUser: admin
+  adminPasswd: admin
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>其次，创建 <code>docker-compose.yml</code> , 使用 <code>docker-compose up -d</code> 启动，内容如下：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
+services:
+    zookeeper:
+        image: zookeeper:3.5.8
+        restart: on-failure
+        ports:
+        - &#34;21810:2181&#34;
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=0.0.0.0:2888:3888
+        volumes:
+        - ./data/zookeeper/data:/data
+        - ./data/zookeeper/datalog:/datalog
+    canal-admin:
+        image: canal/canal-admin:v1.1.4
+        restart: on-failure
+        ports:
+            - 8089:8089
+        volumes:
+            -  ./config/admin/application.yml:/home/admin/canal-admin/conf/application.yml
+            -  ./logs/canal-admin/logs:/home/admin/canal-admin/logs
+    canal-server:
+        image: canal/canal-server:v1.1.4
+        restart: on-failure
+        depends_on:
+            - canal-admin
+        environment:
+            canal.register.ip : 10.10.40.237
+            canal.admin.manager : 10.10.40.237:8089
+            canal.admin.port : 11110
+            canal.admin.user : admin
+            canal.admin.passwd : 4ACFE3202A5FF5CF467898FC58AAB1D615029441
+            canal.admin.register.auto : &#34;true&#34;
+            canal.admin.register.cluster : test
+        ports:
+            - 11110:11110
+            - 11111:11111
+            - 11112:11112
+            - 9100:9100
+        volumes:
+            -  ./logs/canal-server/logs:/home/admin/canal-server/logs
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>部署Canal Admin需要使用Zookeeper</li>
+<li>配置Canal Server的注意事项
+<ul>
+<li><code>canal.register.ip</code>: 用来指定当前Canal Server的IP，最好设定主机的IP。</li>
+<li><code>canal.admin.passwd</code>: 这个密码就是Canal Admin里面配置的管理员密码，但这里不是明文，可以使用MySQL的<code>select password(&quot;admin&quot;)</code>查询加密的密码，查询结果的 <code>*</code> 是不需要的。</li>
+<li><code>canal.admin.register.auto</code>: 这个设置是自动注册到Canal Admin，如果没有设置，需要在Canal Server启动后，在Canal Admin上面手动添加。</li>
+<li><code>canal.admin.register.cluster</code>: 这个设置是要注册到Canal Admin的集群名字，需要提前设置，如果没有在Canal Admin上面注册，Canal Server启动时会报错。一般来说Canal Server的单机节点，不需要设置这个。</li>
+</ul>
+</li>
+</ul>
+<h2 id="canal-admin-使用">Canal Admin 使用</h2>
+<h3 id="注意事项-1">注意事项</h3>
+<ul>
+<li>首次启动时，Canal Server会报错，启动失败，因为 <code>canal.admin.register.cluster</code> 在第一次启动时并没有在Canal Admin里设置，需要在Canal Admin做相应设置之后就可以正常启动了</li>
+</ul>
+<h3 id="访问canal-admin">访问Canal Admin</h3>
+<ul>
+<li>
+<p>登录Canal Admin：<code>http://localhost:8089</code></p>
+<ul>
+<li>默认用户名/密码：admin/123456</li>
+</ul>
+<p><img src="/img/canal_admin_login.png" alt="Canal Admin 登录"></p>
+</li>
+<li>
+<p>创建 <code>test</code> 集群</p>
+<ul>
+<li>创建完成之后就可以重新启动Canal Server了</li>
+</ul>
+<p><img src="/img/canal_admin_create_cluster.png" alt="Canal Admin 创建集群"></p>
+</li>
+<li>
+<p>使用集群之后，Canal Server的配置都在集群中设置</p>
+<p><img src="/img/canal_admin_cluster_setting.png" alt="Canal Admin 集群设置"></p>
+<p><img src="/img/canal_admin_cluser_setting_2.png" alt="Canal Admin 集群设置"></p>
+</li>
+<li>
+<p>Canal Server重启之后会自动加入集群，然后可以在管理界面中设置一些属性</p>
+<p><img src="/img/canal_admin_servers.png" alt="Canal Admin 的Server信息"></p>
+</li>
+<li>
+<p>创建新实例Instance执行MySQL Binlog的同步</p>
+<ul>
+<li>需要修改的是数据库地址、用户名密码和发送到kafka的topic</li>
+<li>更多的配置说明请参考 <a href="https://github.com/alibaba/canal/wiki">Canal官方wiki</a></li>
+</ul>
+<p><img src="/img/canal_admin_server_new_instance.png" alt="Canal Admin 创建实例"></p>
+<p><img src="/img/canal_admin_server_instance_setting.png" alt="Canal Admin 创建实例"></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Zhigang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/canal/">canal</a>
+          <a href="/tags/docker/">docker</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2019/k8s-gco-io-images/">
+            <span class="next-text nav-default">K8s中常用的gcr.io镜像</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhigang52110@sina.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/zhigang" class="iconfont icon-github" title="github"></a>
+  <a href="https://zhigang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhigang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
