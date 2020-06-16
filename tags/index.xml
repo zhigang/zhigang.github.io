@@ -21,11 +21,20 @@
     </item>
     
     <item>
-      <title>docker</title>
-      <link>https://zhigang.github.io/tags/docker/</link>
+      <title>canal admin</title>
+      <link>https://zhigang.github.io/tags/canal-admin/</link>
       <pubDate>Mon, 15 Jun 2020 22:10:03 +0800</pubDate>
       
-      <guid>https://zhigang.github.io/tags/docker/</guid>
+      <guid>https://zhigang.github.io/tags/canal-admin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>canal server</title>
+      <link>https://zhigang.github.io/tags/canal-server/</link>
+      <pubDate>Mon, 15 Jun 2020 22:10:03 +0800</pubDate>
+      
+      <guid>https://zhigang.github.io/tags/canal-server/</guid>
       <description></description>
     </item>
     

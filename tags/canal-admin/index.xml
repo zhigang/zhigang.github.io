@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>canal admin on Zhigang</title>
+    <link>https://zhigang.github.io/tags/canal-admin/</link>
+    <description>Recent content in canal admin on Zhigang</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 15 Jun 2020 22:10:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://zhigang.github.io/tags/canal-admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用Docker安装Canal</title>
+      <link>https://zhigang.github.io/post/2020/canal-install/</link>
+      <pubDate>Mon, 15 Jun 2020 22:10:03 +0800</pubDate>
+      
+      <guid>https://zhigang.github.io/post/2020/canal-install/</guid>
+      <description>简介 canal [kə&amp;rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费</description>
+    </item>
+    
+  </channel>
+</rss>
