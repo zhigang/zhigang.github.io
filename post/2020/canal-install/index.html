@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Zhigang" /><meta name="description" content="简介 canal [kə&amp;rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费" /><meta name="keywords" content="Hugo, Zhigang, zhigang.github.io" />
+<meta name="author" content="Zhigang(zhigang52110@sina.com)" /><meta name="description" content="简介 canal [kə&amp;rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费" /><meta name="keywords" content="Hugo, Zhigang, zhigang.github.io" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.72.0 with theme even" />
+<meta name="generator" content="Hugo 0.90.1 with theme even" />
 
 
 <link rel="canonical" href="https://zhigang.github.io/post/2020/canal-install/" />
@@ -35,24 +35,21 @@
 
 
 
-<link href="/sass/main.min.4eb71590ad024de2ebb1b5eef94cbb645b7e63e6b9c4c837355530a75e112ce1.css" rel="stylesheet">
+<link href="/sass/main.min.34ea39b135b60192ead55c0c70eefbe4b1782f9a8c14030970309fb0a39b248c.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="用Docker安装Canal" />
 <meta property="og:description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhigang.github.io/post/2020/canal-install/" />
+<meta property="og:url" content="https://zhigang.github.io/post/2020/canal-install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-15T22:10:03+08:00" />
 <meta property="article:modified_time" content="2020-06-16T11:11:00+08:00" />
+
 <meta itemprop="name" content="用Docker安装Canal">
-<meta itemprop="description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费">
-<meta itemprop="datePublished" content="2020-06-15T22:10:03&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-16T11:11:00&#43;08:00" />
-<meta itemprop="wordCount" content="2392">
-
-
-
+<meta itemprop="description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费"><meta itemprop="datePublished" content="2020-06-15T22:10:03+08:00" />
+<meta itemprop="dateModified" content="2020-06-16T11:11:00+08:00" />
+<meta itemprop="wordCount" content="2391">
 <meta itemprop="keywords" content="canal,canal admin,canal server," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="用Docker安装Canal"/>
 <meta name="twitter:description" content="简介 canal [kə&rsquo;næl]，译意为水道/管道/沟渠，主要用途是基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费 基于日志增量订阅和消费"/>
@@ -199,13 +196,13 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[mysqld]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[mysqld]
 log-bin=mysql-bin  # 添加这一行开启 binlog
 binlog-format=ROW  # 选择 ROW 模式
 server_id=1        # 针对 mysql 集群
@@ -216,7 +213,7 @@ server_id=1        # 针对 mysql 集群
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -231,7 +228,7 @@ server_id=1        # 针对 mysql 集群
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
 services:
   mysql:
     restart: always
@@ -262,7 +259,7 @@ services:
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -313,7 +310,7 @@ services:
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
 services:
     canal-server:
         image: canal/canal-server:v1.1.4
@@ -372,7 +369,7 @@ services:
 </ul>
 </li>
 </ul>
-<h4 id="部署cannal-admin-和-cannal-server">部署Cannal Admin 和 Cannal Server</h4>
+<h4 id="部署canal-admin-和-canal-server">部署Canal Admin 和 Canal Server</h4>
 <ul>
 <li>首先，创建Canal Admin的配置文件 <code>/config/admin/application.yml</code> , 内容如下：
 <ul>
@@ -382,7 +379,7 @@ services:
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -405,7 +402,7 @@ services:
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">server:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server:
   port: 8089
 spring:
   jackson:
@@ -433,7 +430,7 @@ canal:
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -476,7 +473,7 @@ canal:
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">version: &#34;3.6&#34;
 services:
     zookeeper:
         image: zookeeper:3.5.8
@@ -576,7 +573,7 @@ services:
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Zhigang</span>
+    <span class="item-content">Zhigang(zhigang52110@sina.com)</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -588,7 +585,21 @@ services:
   
   
 </div>
-<footer class="post-footer">
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/qrcode/wechat-pay.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/qrcode/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/canal/">canal</a>
           <a href="/tags/canal-admin/">canal admin</a>
@@ -636,11 +647,11 @@ services:
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">Zhigang</span>
+    <span class="author">Zhigang(zhigang52110@sina.com)</span>
   </span>
 </div>
     </footer>
@@ -656,7 +667,7 @@ services:
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 
